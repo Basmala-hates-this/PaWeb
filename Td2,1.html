@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercice 2</title>
+  <style>
+    canvas {
+      border: 1px solid #000;
+      background-color: #ccc;
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas2" width="500" height="300"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas2');
+    const ctx = canvas.getContext('2d');
+
+    const html5Logo = new Image();
+    const phpLogo = new Image();
+
+    html5Logo.src = "https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg";
+    phpLogo.src = "https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg";
+
+    html5Logo.onload = () => {
+      ctx.save();
+      ctx.translate(150, 100);
+      //ctx.rotate(45 * Math.PI / 180);
+      ctx.drawImage(html5Logo, -40, -40, 80, 80);
+      ctx.restore();
+
+      ctx.fillStyle = "#000";
+      ctx.font = "14px Arial";
+      ctx.fillText("Fig 1 : HTML5", 110, 180);
+    };
+
+    phpLogo.onload = () =>{
+      ctx.drawImage(phpLogo, 300, 150, 80, 80);
+      ctx.fillStyle = "#000";                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+      ctx.font = "14px Arial";
+      ctx.fillText("Fig 2 : PHP", 310, 250);
+    } 
+  </script>
+  
+</body>
+</html>

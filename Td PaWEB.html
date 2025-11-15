@@ -1,0 +1,151 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        table{
+            border: 1px solid black ;
+        width: 50%;
+        position: relative;
+        margin-left:25%;
+        margin-right:25%;
+    }
+    td,tr{
+        border: 1px solid black ;
+        text-align: center;
+    }
+/* 
+    td:nth-child(1){
+        background-color: pink;
+    }
+    td:nth-child(2){
+        background-color: rgb(239, 133, 207);
+    }
+    td:nth-child(3){
+        background-color: rgb(158, 226, 255);
+    } 
+    tfoot,th{
+        background-color: yellow;
+    } */
+    </style>
+</head>
+<body>
+
+    <table >
+       
+        <tbody>
+            <TR>
+                <td colspan="2">1</td>
+                <TD colspan="2">2</TD>
+                <td>3</td>
+            </TR>
+
+            <tr>
+                <td>4</td>
+                <TD rowspan="3">5</TD>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td rowspan="3">9</td>
+                <td>10</td>
+                <TD>11</TD>
+                <TD>12</TD>
+            </tr>
+
+            <tr>
+              <td>13</td>
+              <td rowspan="2" colspan="2">14</td>
+              
+            </tr>
+            <tr>
+                <td> 15</td>
+              <TD>16</TD>
+            </tr>
+        </tbody>
+        <tfoot>
+        </tfoot>
+        <caption side="bottom"> tab1 : list des etudients</canvas>
+    </table>
+    
+    <br>
+<table>
+<colgroup>
+    <col span="1" style="background-color: rgb(23, 126, 56);">
+    <col span="2" style="background-color: rgb(165, 33, 33);">
+
+    <tread>
+        <tr>
+        <th>nom</th>
+        <th>Prenom</th>
+        <th>Age</th>
+    </tr>
+    </thead>
+
+    <tbody>
+<tr>
+    <td>Ali</td>
+    <td>Ali</td>
+    <td>21</td>
+
+</tr>
+
+<tr>
+    <td>Med</td>
+    <td>Med</td>
+    <td>22</td>
+
+</tr>
+    </tbody>
+
+    <tfoot>
+     
+        <tr>
+            <th>nom1</th>
+            <th>Prenom1</th>
+            <th>Age1</th>
+        </tr>
+    
+    </tfoot>
+
+</colgroup>
+
+</table>
+<br>
+<br>
+
+<details>
+    <summary>HTML</summary>
+    <abbr title="Hyper Marke up text language">Hyper Marke up text language</abbr>
+</details>
+
+<time pubtime="2025"> hi!</time>
+<!-- <legend> this is yumiko!!
+    <img src="yumiko55.png" alt="yumiko" width="50%" style="margin-left:25%"">
+</legend> -->
+
+
+<br>
+<br>
+<dl>
+    <dt>Chrom</dt>
+    <dd>opera est ........</dd>
+    <dd>opera est ........</dd>
+    <dd>opera est ........</dd>
+
+    <dt>opera</dt>
+    <dd>opera est ........</dd>
+    <dt>firefox</dt>
+    <dd>firefox est ........</dd>
+    
+</dl>
+
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>td3</title>
+</head>
+<body>
+    <h1>lacation</h1>
+    <button onclick="getLocation()">Get Location</button>
+    <p id="location"></p>
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            document.getElementById("location").innerHTML = "Latitude: " + lat + "<br>Longitude: " + lon;
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById("location").innerHTML = "User denied the request for Geolocation.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById("location").innerHTML = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById("location").innerHTML = "The request to get user location timed out.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    document.getElementById("location").innerHTML = "An unknown error occurred.";
+                    break;
+            }
+        }
+    </script>
+<br><br>
+    <hr><hr>
+     <h1>image from camera</h1>
+    <form>
+        <input type="file" accept="image/*" capture="camera" /><br>
+
+        <input type="submit" value="Upload Image" /><br>
+        <h1>Device Camera Feed</h1>
+    <video id="cameraFeed" autoplay></video>
+    <button id="captureButton">Capture Photo</button>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <img id="capturedImage" style="display:none;" alt="Captured Image" />
+    <script>
+        const video = document.getElementById('cameraFeed');
+        const captureButton = document.getElementById('captureButton');
+        const canvas = document.getElementById('canvas');
+        const capturedImage = document.getElementById('capturedImage');
+        let stream;
+
+        async function startCamera() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                video.srcObject = stream;
+            } catch (error) {
+                console.error('Error accessing camera:', error);
+                alert('Could not access the camera. Please make sure you have granted permission.');
+            }
+        }
+
+        startCamera();
+
+        captureButton.addEventListener('click', () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataURL = canvas.toDataURL('image/png');
+            capturedImage.src = dataURL;
+            capturedImage.style.display = 'block';
+        });
+    </script>
+    </form>
+      <h1>Upload a File</h1>
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+        <label for="fileUpload">Select file to upload:</label>
+        <input type="file" id="fileUpload" name="fileUpload" required />
+        <input type="submit" value="Upload File" />
+    </form>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5/JS Device API Tasks</title>
+   
+</head>
+<body>
+
+    <h1>Web API Tasks (HTML5 & JavaScript Only)</h1>
+
+    <section id="task1">
+        <h2>User Location Detection</h2>
+        <p>Click the button below to get your current location (requires browser permission).</p>
+        <button onclick="getLocation()">Get Location</button>
+       
+    </section>
+
+    <hr>
+
+    <section id="task2">
+        <h2> Activate Camera via Form</h2>
+        <button onclick="activateCamera()">Activate Camera</button>
+        <video id="camera-stream" autoplay playsinline></video>
+        
+    </section>
+
+    <hr>
+
+    <section id="task3">
+        <h2> File Upload via Form</h2>
+        <form id="upload-form">
+            <label for="file-input">Select File:</label>
+            <input type="file" id="file-input" name="uploadedFile" required>
+            <br><br>
+            <button type="submit">Simulate Upload</button>
+        </form>
+        <p id="upload-status">No file selected.</p>
+    </section>
+
+    <script>
+        // =======================================================
+        // exo1
+        // =======================================================
+        function getLocation() {
+            const output = document.getElementById('location-output');
+            
+            if (navigator.geolocation) {
+                // Attempt to get the current position
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        // Success callback
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        output.innerHTML = `
+                           
+                            Latitude: ${lat.toFixed(6)}<br>
+                            Longitude: ${lon.toFixed(6)}
+                        `;
+                    }
+                    
+                );
+            } 
+        }
+
+        // =======================================================
+        // exo2
+        // =======================================================
+        function activateCamera() {
+            const videoElement = document.getElementById('camera-stream');
+            const statusElement = document.getElementById('camera-status');
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then((stream) => {
+                        // Success: Stream the video to the element
+                        videoElement.srcObject = stream;
+                        
+                    })
+                   
+            }
+        }
+
+        // =======================================================
+        // exo3
+        // =======================================================
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Stop the form from performing a default submission
+
+            const fileInput = document.getElementById('file-input');
+            const statusElement = document.getElementById('upload-status');
+            
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                
+                // You could use the FormData object here if you were sending it to a server, 
+                // but since there's no backend, we just display the file properties.
+                
+                statusElement.innerHTML = `
+                    File Name: ${file.name}<br>
+                `;
+
+            } else {
+                statusElement.innerHTML = "Please select a file to simulate the upload.";
+            }
+        });
+    </script>
+</body>
+</html>
