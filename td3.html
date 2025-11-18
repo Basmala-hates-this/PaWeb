@@ -1,206 +1,200 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>td3</title>
-</head>
-<body>
-    <h1>lacation</h1>
-    <button onclick="getLocation()">Get Location</button>
-    <p id="location"></p>
-
-    <script>
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition, showError);
-            } else {
-                document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-
-        function showPosition(position) {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            document.getElementById("location").innerHTML = "Latitude: " + lat + "<br>Longitude: " + lon;
-        }
-
-        function showError(error) {
-            switch(error.code) {
-                case error.PERMISSION_DENIED:
-                    document.getElementById("location").innerHTML = "User denied the request for Geolocation.";
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    document.getElementById("location").innerHTML = "Location information is unavailable.";
-                    break;
-                case error.TIMEOUT:
-                    document.getElementById("location").innerHTML = "The request to get user location timed out.";
-                    break;
-                case error.UNKNOWN_ERROR:
-                    document.getElementById("location").innerHTML = "An unknown error occurred.";
-                    break;
-            }
-        }
-    </script>
-<br><br>
-    <hr><hr>
-     <h1>image from camera</h1>
-    <form>
-        <input type="file" accept="image/*" capture="camera" /><br>
-
-        <input type="submit" value="Upload Image" /><br>
-        <h1>Device Camera Feed</h1>
-    <video id="cameraFeed" autoplay></video>
-    <button id="captureButton">Capture Photo</button>
-    <canvas id="canvas" style="display:none;"></canvas>
-    <img id="capturedImage" style="display:none;" alt="Captured Image" />
-    <script>
-        const video = document.getElementById('cameraFeed');
-        const captureButton = document.getElementById('captureButton');
-        const canvas = document.getElementById('canvas');
-        const capturedImage = document.getElementById('capturedImage');
-        let stream;
-
-        async function startCamera() {
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-                video.srcObject = stream;
-            } catch (error) {
-                console.error('Error accessing camera:', error);
-                alert('Could not access the camera. Please make sure you have granted permission.');
-            }
-        }
-
-        startCamera();
-
-        captureButton.addEventListener('click', () => {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-            const dataURL = canvas.toDataURL('image/png');
-            capturedImage.src = dataURL;
-            capturedImage.style.display = 'block';
-        });
-    </script>
-    </form>
-      <h1>Upload a File</h1>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-        <label for="fileUpload">Select file to upload:</label>
-        <input type="file" id="fileUpload" name="fileUpload" required />
-        <input type="submit" value="Upload File" />
-    </form>
-</body>
-</html> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML5/JS Device API Tasks</title>
+    <title>TD3</title>
    
 </head>
 <body>
 
   
 
-    <section id="task1">
-        <h2>User Location Detection</h2>
-        <p>Click the button below to get your current location (requires browser permission).</p>
-        <button onclick="getLocation()">Get Location</button>
-       
-    </section>
-
+   <section id="task1">
+    <h2>location</h2>
+    
+    <button onclick="getLocation()">location</button>
+    
+    <p id="location-output"></p>
+  </section>
     <hr>
 
-    <section id="task2">
-        <h2> Activate Camera via Form</h2>
-        <button onclick="activateCamera()">Activate Camera</button>
-        <video id="camera-stream" autoplay playsinline></video>
-        
-    </section>
+   <section id="task2">
+    <h2> Enregistreur Video</h2>
+    <button onclick="activateCamera()">Activer Camera</button>
+    <video id="camera-stream" autoplay playsinline></video>
+    <hr>
+    <div>
+        <button id="start-btn" onclick="startRecording()" disabled>Demarrer</button>
+        <button id="stop-btn" onclick="stopRecording()" disabled>Arreter</button>
+    </div>
+    <p id="camera-status">Statut : Inactif</p>
+</section>
 
     <hr>
 
     <section id="task3">
-        <h2> File Upload via Form</h2>
+        <h2> ficheiers</h2>
         <form id="upload-form">
-            <label for="file-input">Select File:</label>
-            <input type="file" id="file-input" name="uploadedFile" required>
+            <label for="file-input">ficheier:</label>
+            <input type="file" id="file-input" name="uploadedFile" multiple required>
             <br><br>
-            <button type="submit">Simulate Upload</button>
+            <button type="submit">upload</button>
         </form>
         <p id="upload-status">No file selected.</p>
     </section>
 
     <script>
         //I'll use templete leterale because fuck concatination 
-        // =======================================================
+      
         // exo1
-        // =======================================================
-        function getLocation() {
+   
+          function getLocation() {
             const output = document.getElementById('location-output');
             
             if (navigator.geolocation) {
-                // Attempt to get the current position
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
-                        // Success callback
                         const lat = position.coords.latitude;
                         const lon = position.coords.longitude;
                         output.innerHTML = `
-                           
                             Latitude: ${lat.toFixed(6)}<br>
                             Longitude: ${lon.toFixed(6)}
-                        `;
+                        `
                     }
                     
                 );
             } 
         }
 
-        // =======================================================
+
+//////////////////////////////////////////////////
         // exo2
-        // =======================================================
-        function activateCamera() {
-            const videoElement = document.getElementById('camera-stream');
-            const statusElement = document.getElementById('camera-status');
+      let mediaRecorder;
+let recordedChunks = [];
+let stream;
 
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then((stream) => {
-                        // Success: Stream the video to the element
-                        videoElement.srcObject = stream;
-                        
-                    })
-                   
-            }
-        }
+const videoElement = document.getElementById('camera-stream');
+const statusElement = document.getElementById('camera-status');
+const startButton = document.getElementById('start-btn');
+const stopButton = document.getElementById('stop-btn');
 
-        // =======================================================
-        // exo3
-        // =======================================================
-        document.getElementById('upload-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Stop the form from performing a default submission
+function activateCamera() {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+       
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }) 
+            .then((cameraStream) => {
+                stream = cameraStream;
+                videoElement.srcObject = stream;
+                statusElement.textContent = "Statut : Camera active. Appuyez sur Demarrer.";
+                startButton.disabled = false; 
 
-            const fileInput = document.getElementById('file-input');
-            const statusElement = document.getElementById('upload-status');
+                mediaRecorder = new MediaRecorder(stream);
+
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                    const url = URL.createObjectURL(blob);
+                    
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = url;
+                    downloadLink.download = `enregistrement_${new Date().toISOString()}.webm`;
+                    downloadLink.textContent = 'vidio engestree';
+                    
+                    statusElement.innerHTML = 'terminer.';
+                    statusElement.appendChild(downloadLink);
+                    recordedChunks = []; 
+                    
+                    startButton.disabled = false;
+                    stopButton.disabled = true;
+                };
+            })
+            .catch(error => {
+                statusElement.textContent = `Erreur d'acces a la camera : ${error.name} - ${error.message}`;
+            });
+    } 
+}
+
+function startRecording() {
+    if (mediaRecorder && mediaRecorder.state === 'inactive') {
+        recordedChunks = []; 
+        mediaRecorder.start();
+        statusElement.textContent = "Statut : ENREGISTREMENT EN COURS...";
+        startButton.disabled = true;
+        stopButton.disabled = false;
+    }
+}
+
+function stopRecording() {
+    if (mediaRecorder && mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+        statusElement.textContent = "Statut : Arret. Preparation du telechargement...";
+        stopButton.disabled = true;
+    }
+}
+////////////////////////////
+
+// exo3
+document.getElementById('upload-form').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    const fileInput = document.getElementById('file-input');
+    const statusElement = document.getElementById('upload-status');
+    statusElement.innerHTML = ''; 
+
+    if (fileInput.files.length > 0) {
+        let output = "<h3>Fichiers selectionnes :</h3><ul>";
+        
+        for (let i = 0; i < fileInput.files.length; i++) {
+            const file = fileInput.files[i];
             
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                
-                // You could use the FormData object here if you were sending it to a server, 
-                // but since there's no backend, we just display the file properties.
-                
-                statusElement.innerHTML = `
-                    File Name: ${file.name}<br>
-                `;
+            const fileSize = (file.size / 1024).toFixed(2);
+            const fileType = file.type || "Inconnu";
+            
+            output += `<li>
+                <a href="#" class="file-link" 
+                   data-name="${file.name}" 
+                   data-size="${fileSize} KB" 
+                   data-type="${fileType}">
+                    ${file.name}
+                </a> 
+                <span>
+                    (${fileSize} KB, Type: ${fileType})
+                </span>
+            </li>`;
+        }
+        
+        output += "</ul>";
+        statusElement.innerHTML = output;
+        
+        attachFileClickHandlers();
 
-            } else {
-                statusElement.innerHTML = "Please select a file to simulate the upload.";
-            }
+    } else {
+        statusElement.innerHTML = "Veuillez sélectionner au moins un fichier.";
+    }
+});
+
+
+function attachFileClickHandlers() {
+    const fileLinks = document.querySelectorAll('.file-link');
+    
+    fileLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            
+            const name = this.getAttribute('data-name');
+            const size = this.getAttribute('data-size');
+            const type = this.getAttribute('data-type');
+            
+            alert(`Détails du fichier :\n\nNom: ${name}\nTaille: ${size}\nType: ${type}`);
         });
+    });
+}
+
     </script>
 </body>
 </html>
