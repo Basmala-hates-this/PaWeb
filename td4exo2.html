@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<style>
+
+    /* Basic Menu Styling */
+    ul.main-menu {
+        list-style-image: url("C:\xampp\htdocs\photo_album\photos\photo_6921bf70b20d3.jpg"); /* Placeholder for custom image bullet ,extra shit for selka to coment on....*/
+        width: 200px;
+        border: 1px solid #000;
+        padding: 20px 40px;
+        margin: 20%;
+    }
+
+   
+    input[type="checkbox"] {
+        display: none;
+    }
+
+   
+
+  
+    ul.sub-menu {
+        display: none; 
+        list-style-type: circle; 
+        list-style-image: none; 
+    }
+
+    /* THE LOGIC(selka will comment anyway :)): When checkbox is checked, display the sibling ul */
+    #toggle-paweb:checked ~ ul.sub-menu {
+        display: block;
+    }
+     #toggle-sid:checked ~ ul.sub-menu {
+        display: block;
+    }
+</style>
+</head>
+<body>
+
+    <ul class="main-menu">
+        <li>
+            <input type="checkbox" id="toggle-paweb">
+            <label for="toggle-paweb">PAWEB</label>
+            
+            <ul class="sub-menu">
+                <li>definition</li>
+            </ul>
+        </li>
+
+        <li>
+            <input type="checkbox" id="toggle-sid">
+            <label for="toggle-sid">SID</label>
+            
+            <ul class="sub-menu" > <li>definition</li>
+            </ul>
+        </li>
+    </ul>
+
+</body>
+</html>
+
+<!-- i feel like i'm making a big waste putting each exo in its own file...welp nothing to do -->

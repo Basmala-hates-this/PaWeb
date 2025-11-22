@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>3,4,5,6</title>
+<style>
+    /* --- EXERCICE 3: Header Gradient --- */
+    header {
+        /* Linear gradient */
+        background: linear-gradient(to bottom, #4d0303, #1d14c3);
+        padding: 20px;
+        border-bottom: 2px solid #333;
+    }
+
+    /* --- EXERCICE 4 --- */
+    
+    /* 1. Rounded border on ODD paragraphs */
+    /* We use .content to ensure we target the article text */
+    .content p:nth-of-type(odd) {
+        border: 2px solid #000;
+        border-radius: 15px;
+        padding: 10px;
+    }
+
+    /* 2. Links styling */
+    a:link, a:visited {
+        color: red;
+        text-decoration: none;
+    }
+    a:hover {
+        color: white;
+        background-color: red;
+    }
+
+    /* 3. First letter of every paragraph bigger */
+    p::first-letter {
+        font-size: 2em;
+        font-weight: bold;
+    }
+
+    /* --- EXERCICE 5 --- */
+
+    /* 1. Navigation Hover Effect */
+    nav a {
+        display: inline-block;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        margin-right: 5px;
+    }
+    /* Reusing the logic from Ex 4, but ensuring it applies to nav specifically */
+    nav a:hover {
+        background-color: red;
+        color: white;
+    }
+
+    /* 2. Rotate the 2nd title by 3 degrees */
+    h2:nth-of-type(2) {
+        transform: rotate(3deg);
+        display: inline-block; /* Transform works better on block/inline-block */
+    }
+
+    /* 3. Red shadow on Main Title */
+    h1 {
+        text-shadow: 2px 2px 5px red;
+    }
+
+    /* 4. Rotate content completely on hover */
+    .content {
+        transition: transform 4s ease;
+        border: 1px dashed gray; /* Added for visibility */
+        padding: 20px;
+        margin: 20px 0;
+    }
+    .content:hover {
+        transform: rotate(360deg);
+    }
+
+    /* 5. Footer Animation (Left to Right infinite) */
+    footer {
+        border: 2px solid #333;
+        border-radius: 10px;
+        width: 150px; /* Fixed width to see it move */
+        padding: 10px;
+        background: #eee;
+        position: relative; /* Required for moving left/right */
+        
+        /* Animation Syntax: name duration timing-function iteration-count */
+        animation: moveFooter 5s linear infinite; 
+        /* Using 'from' and 'to' as requested */
+    }
+
+    @keyframes moveFooter {
+        from { left: 0; }
+        to { left: calc(100% - 180px); } /* Stops it from flying off screen */
+    }
+
+    /* --- EXERCICE 6: Animation chat.png --- */
+    #logo {
+        width: 100px; /* Base size */
+        /* Animation: grow, 5 seconds, linear */
+        animation: grandit 5s linear; 
+    }
+
+    @keyframes grandit {
+        0% { transform: scale(1); }
+        20% { transform: scale(1.1); }
+        50% { transform: scale(1.3); }
+        80% { transform: scale(1.4); }
+        100% { transform: scale(1.5); }
+    }
+
+</style>
+</head>
+<body>
+
+    <header>
+        <h1>Titre Principal (Ombre Rouge)</h1>
+    </header>
+
+    <nav>
+        <a href="td4exo3,4,5.html">Accueil</a>
+        <a href="td4exo1.html">td4exo1</a>
+        <a href="td4exo2.html">td4exo2</a>
+    </nav>
+
+    <div class="content">
+        <h2>Titre 1</h2>
+        <p>Premier paragraphe.to lazy to write something.</p>
+        
+        <h2>Titre 2 (Rotated 3deg)</h2> 
+        <p>Deuxieme paragraphe .</p>
+        
+        <p>Troisieme paragraphe. .</p>
+
+        <br>
+        <img id="logo" src="C:\xampp\htdocs\photo_album\photos\photo_6921bf70b20d3.jpg"  style="background:gray; display:block;">
+        <small>(Image "MY github pfp :) " animation)</small>
+    </div>
+
+    <footer>
+        the footer that i feel like its killing me
+    </footer>
+
+</body>
+</html>

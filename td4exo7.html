@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+    /* Basic styling for visibility */
+.box { border: 1px solid #333; padding: 20px; text-align: center; }
+
+.container {
+    display: flex;
+    flex-direction: column; /* Stack them vertically by default */
+    min-height: 100vh;
+}
+
+.header {
+    background: #65eb8d;
+}
+
+/* To make Menu and Content sit side-by-side (optional common layout) */
+/* We wrap menu and content in a middle wrapper or use row wrap */
+/* However, a simple column stack is valid Flex. 
+   Below is a "Holy Grail" flex layout (Menu Left, Content Right) */
+
+.wrapper {
+    display: flex; 
+    flex: 1; /* Takes up remaining space */
+}
+
+.menu {
+    flex: 0 0 200px; /* Fixed width menu */
+    background: #0dc5c2;
+}
+
+.content {
+    flex: 1; /* Takes remaining width */
+    background: #8e25ab;
+}
+
+.footer {
+    background: #333;
+    color: #fff;
+}
+
+
+/*==========================================================================================================*/
+
+
+.containerr {
+    display: grid;
+    height: 100vh;
+    /* Define the grid areas */
+    grid-template-areas:
+        "header header"
+        "menu content"
+        "footer footer";
+    
+    /* Define column widths: Menu=200px, Content=Automatic */
+    grid-template-columns: 200px 1fr; 
+    
+    /* Define row heights: Header=Auto, Content=Available Space, Footer=Auto */
+    grid-template-rows: auto 1fr auto; 
+    
+    gap: 10px;
+}
+
+.headerr {
+    grid-area: header;
+    background: #ffcccc;
+}
+
+.menur {
+    grid-area: menu;
+    background: #ccffcc;
+}
+
+.contentr {
+    grid-area: content;
+    background: #ccccff;
+}
+
+.footerr {
+    grid-area: footer;
+    background: #ddd;
+}
+   </style>
+</head>
+<body>
+    <div class="container">
+    <header class="header">Entete</header>
+    <nav class="menu">Menu</nav>
+    <main class="content">Contenu</main>
+    <footer class="footer">Pied-page</footer>
+</div>
+<br><hr><hr><br>
+<div class="containerr">
+    <header class="headerr">Entete</header>
+    <nav class="menur">Menu</nav>
+    <main class="contentr">Contenu</main>
+    <footer class="footerr">Pied-page</footer>
+</div>
+</body>
+</html>
